@@ -11,6 +11,7 @@ import fs
 
 
 class MCRDataset(InMemoryDataset):
+
     url = ('https://github.com/pinkocto/DataHub/raw/main/'
                    'graph_datasets/datasets')
     
@@ -37,7 +38,9 @@ class MCRDataset(InMemoryDataset):
         out = torch.load(self.processed_paths[0])
         if not isinstance(out, tuple) or len(out) < 3:
             raise RuntimeError(
-                
+                "If this error occurred while loading an already existing "
+                "dataset, remove the 'processed/' directory in the dataset's "
+                "root folder and try again.")
         assert len(out) == 3 or len(out) == 4
 
         if len(out) == 3:  # Backward compatibility.
